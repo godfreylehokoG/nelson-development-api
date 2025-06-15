@@ -1,0 +1,23 @@
+{
+  "name": "nelson-development-api",
+  "version": "1.0.0",
+  "description": "Nelson Development - String to Array API",
+  "main": "index.html",
+  "scripts": {
+    "dev": "vercel dev",
+    "build": "echo 'No build step required for static site'",
+    "start": "vercel dev"
+  },
+  "keywords": [
+    "api",
+    "string",
+    "array",
+    "sort",
+    "nelson-development"
+  ],
+  "author": "Nelson Development",
+  "license": "MIT",
+  "engines": {
+    "node": ">=14.x"
+  }
+}

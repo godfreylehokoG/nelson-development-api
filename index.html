@@ -145,23 +145,28 @@ Content-Type: application/json
     </section>
 
     <footer class="footer">
-        <p>&copy; Developed For Nelson Development 2025</p>
+        <p>&copy; 2025 Nelson Development. FlutterFlow experts bringing your ideas to life.</p>
     </footer>
 
+    <div class="built-with">Built in FlutterFlow</div>
 
     <script>
-        // Mock API endpoint for demonstration
-        async function mockStringToArrayAPI(data) {
-            // Simulate API processing
-            await new Promise(resolve => setTimeout(resolve, 1000));
-            
-            // Convert string to array of characters
-            const chars = data.split('');
-            
-            // Sort alphabetically
-            const sortedChars = chars.sort();
-            
-            return { word: sortedChars };
+        // Real API endpoint
+        async function callStringToArrayAPI(data) {
+            const response = await fetch('/api/string-to-array', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ data: data })
+            });
+
+            if (!response.ok) {
+                const errorData = await response.json();
+                throw new Error(errorData.error || 'API request failed');
+            }
+
+            return await response.json();
         }
 
         async function testDirectAPI() {
@@ -178,7 +183,7 @@ Content-Type: application/json
             responseDiv.innerHTML = '<strong>Processing...</strong>';
             
             try {
-                const result = await mockStringToArrayAPI(testString);
+                const result = await callStringToArrayAPI(testString);
                 responseDiv.innerHTML = `
                     <div class="success">
                         <strong>Success!</strong><br>
