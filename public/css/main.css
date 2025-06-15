@@ -315,11 +315,102 @@ body {
 }
 
 .footer {
-    background: #1a1a1a;
+    background-color: #2c2c2c;
     color: white;
+    padding: 2rem 1rem;
     text-align: center;
-    padding: 2rem;
-    margin-top: 4rem;
+    margin-top: auto;
+}
+
+.footer-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    position: relative;
+}
+
+.footer-logo {
+    position: absolute;
+    top: 0;
+    left: 0;
+    margin-bottom: 0;
+}
+
+.footer-logo svg {
+    max-width: 250px;
+    height: auto;
+}
+
+.footer-logo img {
+    max-width: 220px;
+    height: auto;
+}
+
+.footer p {
+    margin: 0 0 1.5rem 0;
+    font-size: 0.9rem;
+    opacity: 0.9;
+}
+
+.contact-icons {
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+    margin-top: 1rem;
+}
+
+.contact-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    background-color: white;
+    border-radius: 50%;
+    text-decoration: none;
+    color: #333;
+    transition: all 0.3s ease;
+    font-size: 20px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.contact-icon:hover {
+    background-color: #d32f2f;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 16px rgba(211, 47, 47, 0.3);
+    color: white;
+}
+
+.contact-icon svg {
+    width: 20px;
+    height: 20px;
+    fill: currentColor;
+}
+
+/* Responsive design */
+@media (max-width: 568px) {
+    .footer-logo {
+        position: static;
+        margin-bottom: 1rem;
+    }
+    
+    .footer-logo svg {
+        max-width: 90px;
+    }
+    
+    .contact-icons {
+        gap: 1rem;
+    }
+    
+    .contact-icon {
+        width: 40px;
+        height: 40px;
+        font-size: 18px;
+    }
+    
+    .contact-icon svg {
+        width: 18px;
+        height: 18px;
+    }
 }
 
 .built-with {
