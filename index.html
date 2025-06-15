@@ -1,0 +1,657 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nelson Development - String to Array API</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+        }
+
+        .navbar {
+            background: #fff;
+            padding: 1rem 0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #dc2626;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .logo img {
+            height: 40px;
+            width: auto;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #666;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: #dc2626;
+        }
+
+        .hero {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .hero-content h1 {
+            font-size: 3rem;
+            font-weight: bold;
+            color: #1a1a1a;
+            margin-bottom: 1rem;
+            line-height: 1.2;
+        }
+
+        .hero-content p {
+            font-size: 1.2rem;
+            color: #666;
+            margin-bottom: 2rem;
+        }
+
+        .api-visual {
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 400px;
+        }
+
+        .phone-mockup {
+            width: 200px;
+            height: 400px;
+            background: linear-gradient(135deg, #dc2626, #ef4444);
+            border-radius: 25px;
+            padding: 20px;
+            position: relative;
+            box-shadow: 0 20px 40px rgba(220, 38, 38, 0.3);
+            transform: rotate(-5deg);
+        }
+
+        .phone-screen {
+            width: 100%;
+            height: 100%;
+            background: #1a1a1a;
+            border-radius: 15px;
+            padding: 15px;
+            color: #00ff00;
+            font-family: 'Courier New', monospace;
+            font-size: 12px;
+            overflow: hidden;
+        }
+
+        .api-elements {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            pointer-events: none;
+        }
+
+        .floating-element {
+            position: absolute;
+            background: #dc2626;
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            box-shadow: 0 4px 15px rgba(220, 38, 38, 0.3);
+            animation: float 3s ease-in-out infinite;
+        }
+
+        .floating-element:nth-child(1) {
+            top: 20%;
+            left: 10%;
+            animation-delay: 0s;
+        }
+
+        .floating-element:nth-child(2) {
+            top: 30%;
+            right: 15%;
+            animation-delay: 1s;
+        }
+
+        .floating-element:nth-child(3) {
+            bottom: 40%;
+            left: 20%;
+            animation-delay: 2s;
+        }
+
+        .floating-element:nth-child(4) {
+            bottom: 20%;
+            right: 10%;
+            animation-delay: 0.5s;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .section {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+        }
+
+        .section h2 {
+            text-align: center;
+            font-size: 2.5rem;
+            color: #1a1a1a;
+            margin-bottom: 3rem;
+        }
+
+        .api-demo {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            margin-bottom: 3rem;
+        }
+
+        .demo-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+        }
+
+        .demo-section h3 {
+            color: #dc2626;
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+        }
+
+        .code-block {
+            background: #1a1a1a;
+            color: #00ff00;
+            padding: 1.5rem;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            overflow-x: auto;
+            margin: 1rem 0;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: #333;
+        }
+
+        .form-group input, .form-group textarea {
+            width: 100%;
+            padding: 0.75rem;
+            border: 2px solid #e5e7eb;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-group input:focus, .form-group textarea:focus {
+            outline: none;
+            border-color: #dc2626;
+        }
+
+        .btn {
+            background: #dc2626;
+            color: white;
+            padding: 0.75rem 2rem;
+            border: none;
+            border-radius: 50px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn:hover {
+            background: #b91c1c;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(220, 38, 38, 0.3);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: #dc2626;
+            border: 2px solid #dc2626;
+        }
+
+        .btn-secondary:hover {
+            background: #dc2626;
+            color: white;
+        }
+
+        .response-area {
+            margin-top: 1rem;
+            padding: 1rem;
+            background: #f8fafc;
+            border-radius: 8px;
+            border-left: 4px solid #dc2626;
+            min-height: 100px;
+        }
+
+        .specs {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .specs-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .spec-item {
+            padding: 1.5rem;
+            border: 2px solid #f1f5f9;
+            border-radius: 12px;
+            transition: all 0.3s ease;
+        }
+
+        .spec-item:hover {
+            border-color: #dc2626;
+            transform: translateY(-5px);
+        }
+
+        .spec-number {
+            background: #dc2626;
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            margin-bottom: 1rem;
+        }
+
+        .footer {
+            background: #1a1a1a;
+            color: white;
+            text-align: center;
+            padding: 2rem;
+            margin-top: 4rem;
+        }
+
+        .built-with {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: #6366f1;
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 25px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            z-index: 1000;
+        }
+
+        @media (max-width: 768px) {
+            .hero {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .hero-content h1 {
+                font-size: 2rem;
+            }
+
+            .demo-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .nav-links {
+                display: none;
+            }
+        }
+
+        .loading {
+            display: none;
+            width: 20px;
+            height: 20px;
+            border: 2px solid #f3f3f3;
+            border-top: 2px solid #dc2626;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .success {
+            color: #16a34a;
+            background: #dcfce7;
+            padding: 1rem;
+            border-radius: 8px;
+            border-left: 4px solid #16a34a;
+        }
+
+        .error {
+            color: #dc2626;
+            background: #fef2f2;
+            padding: 1rem;
+            border-radius: 8px;
+            border-left: 4px solid #dc2626;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="#" class="logo">
+                <img src="logo.png" alt="Nelson Development Logo">
+                Nelson Development
+            </a>
+            <ul class="nav-links">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#api">API</a></li>
+                <li><a href="#docs">Documentation</a></li>
+                <li><a href="#test">Test</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <h1>STRING TO ARRAY API</h1>
+            <p>High-performance API endpoint that converts strings to alphabetically sorted character arrays. Built for developers who need reliable string manipulation services.</p>
+            <div style="display: flex; gap: 1rem; margin-top: 2rem;">
+                <a href="#test" class="btn">Test API</a>
+                <a href="#docs" class="btn btn-secondary">View Docs</a>
+            </div>
+        </div>
+        <div class="api-visual">
+            <div class="phone-mockup">
+                <div class="phone-screen">
+                    <div style="margin-bottom: 10px; color: #dc2626;">POST /api/string-to-array</div>
+                    <div style="margin-bottom: 10px;">{"data": "nelson"}</div>
+                    <div style="margin-bottom: 10px; color: #fbbf24;">↓ Processing...</div>
+                    <div style="color: #10b981;">{"word": ["e","l","n","n","o","s"]}</div>
+                </div>
+            </div>
+            <div class="api-elements">
+                <div class="floating-element">POST</div>
+                <div class="floating-element">JSON</div>
+                <div class="floating-element">Sort</div>
+                <div class="floating-element">Array</div>
+            </div>
+        </div>
+    </section>
+
+    <section id="api" class="section">
+        <h2>API ENDPOINT</h2>
+        <div class="api-demo">
+            <div class="demo-grid">
+                <div class="demo-section">
+                    <h3>Request Format</h3>
+                    <div class="code-block">POST /api/string-to-array
+Content-Type: application/json
+
+{
+  "data": "example"
+}</div>
+                </div>
+                <div class="demo-section">
+                    <h3>Response Format</h3>
+                    <div class="code-block">HTTP/1.1 200 OK
+Content-Type: application/json
+
+{
+  "word": ["a","e","e","l","m","p","x"]
+}</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="docs" class="section">
+        <h2>DOCUMENTATION</h2>
+        <div class="specs">
+            <div class="specs-grid">
+                <div class="spec-item">
+                    <div class="spec-number">1</div>
+                    <h3>POST Endpoint</h3>
+                    <p>Send a POST request to our API endpoint with JSON data containing a "data" field with your string.</p>
+                </div>
+                <div class="spec-item">
+                    <div class="spec-number">2</div>
+                    <h3>String to Array</h3>
+                    <p>The API converts your string into an array of individual characters automatically.</p>
+                </div>
+                <div class="spec-item">
+                    <div class="spec-number">3</div>
+                    <h3>Alphabetical Sort</h3>
+                    <p>Characters are sorted alphabetically while preserving duplicates in the correct order.</p>
+                </div>
+                <div class="spec-item">
+                    <div class="spec-number">4</div>
+                    <h3>JSON Response</h3>
+                    <p>Receive the sorted character array as a "word" field in the JSON response.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="test" class="section">
+        <h2>TEST YOUR API</h2>
+        <div class="api-demo">
+            <div class="demo-grid">
+                <div class="demo-section">
+                    <h3>Direct API Test</h3>
+                    <div class="form-group">
+                        <label for="testString">Test String:</label>
+                        <input type="text" id="testString" placeholder="Enter your test string..." value="nelson">
+                    </div>
+                    <button class="btn" onclick="testDirectAPI()">
+                        <span class="loading" id="directLoading"></span>
+                        Test API
+                    </button>
+                    <div class="response-area" id="directResponse">
+                        <strong>Response will appear here...</strong>
+                    </div>
+                </div>
+                <div class="demo-section">
+                    <h3>Validation Test</h3>
+                    <div class="form-group">
+                        <label for="apiUrl">Your API Endpoint URL:</label>
+                        <input type="url" id="apiUrl" placeholder="https://your-api-endpoint.com/api">
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Your Email:</label>
+                        <input type="email" id="email" placeholder="your.email@domain.com">
+                    </div>
+                    <button class="btn" onclick="testValidation()">
+                        <span class="loading" id="validationLoading"></span>
+                        Test with Validator
+                    </button>
+                    <div class="response-area" id="validationResponse">
+                        <strong>Validation response will appear here...</strong>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <p>&copy; Developed For Nelson Development 2025</p>
+    </footer>
+
+
+    <script>
+        // Mock API endpoint for demonstration
+        async function mockStringToArrayAPI(data) {
+            // Simulate API processing
+            await new Promise(resolve => setTimeout(resolve, 1000));
+            
+            // Convert string to array of characters
+            const chars = data.split('');
+            
+            // Sort alphabetically
+            const sortedChars = chars.sort();
+            
+            return { word: sortedChars };
+        }
+
+        async function testDirectAPI() {
+            const testString = document.getElementById('testString').value;
+            const responseDiv = document.getElementById('directResponse');
+            const loading = document.getElementById('directLoading');
+            
+            if (!testString.trim()) {
+                responseDiv.innerHTML = '<div class="error">Please enter a test string.</div>';
+                return;
+            }
+            
+            loading.style.display = 'inline-block';
+            responseDiv.innerHTML = '<strong>Processing...</strong>';
+            
+            try {
+                const result = await mockStringToArrayAPI(testString);
+                responseDiv.innerHTML = `
+                    <div class="success">
+                        <strong>Success!</strong><br>
+                        Input: "${testString}"<br>
+                        Output: ${JSON.stringify(result, null, 2)}
+                    </div>
+                `;
+            } catch (error) {
+                responseDiv.innerHTML = `
+                    <div class="error">
+                        <strong>Error:</strong> ${error.message}
+                    </div>
+                `;
+            } finally {
+                loading.style.display = 'none';
+            }
+        }
+
+        async function testValidation() {
+            const apiUrl = document.getElementById('apiUrl').value;
+            const email = document.getElementById('email').value;
+            const responseDiv = document.getElementById('validationResponse');
+            const loading = document.getElementById('validationLoading');
+            
+            if (!apiUrl.trim() || !email.trim()) {
+                responseDiv.innerHTML = '<div class="error">Please fill in both API URL and email fields.</div>';
+                return;
+            }
+            
+            loading.style.display = 'inline-block';
+            responseDiv.innerHTML = '<strong>Testing your endpoint...</strong>';
+            
+            try {
+                // This would normally call the actual validation endpoint
+                const validationUrl = `https://yhxzjyykdsfkdrmdxgho.supabase.co/functions/v1/Senior-dev?url=${encodeURIComponent(apiUrl)}&email=${encodeURIComponent(email)}`;
+                
+                responseDiv.innerHTML = `
+                    <div class="success">
+                        <strong>Validation URL Generated:</strong><br>
+                        <a href="${validationUrl}" target="_blank" style="color: #dc2626; word-break: break-all;">
+                            ${validationUrl}
+                        </a><br><br>
+                        <strong>Instructions:</strong><br>
+                        1. Click the link above to test your endpoint<br>
+                        2. The validator will send a test request to your API<br>
+                        3. Check your email for results<br><br>
+                        <em>Note: Make sure your API endpoint is publicly accessible and accepts POST requests.</em>
+                    </div>
+                `;
+            } catch (error) {
+                responseDiv.innerHTML = `
+                    <div class="error">
+                        <strong>Error:</strong> ${error.message}
+                    </div>
+                `;
+            } finally {
+                loading.style.display = 'none';
+            }
+        }
+
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Add some interactive effects
+        document.addEventListener('DOMContentLoaded', function() {
+            // Animate floating elements on scroll
+            const floatingElements = document.querySelectorAll('.floating-element');
+            
+            window.addEventListener('scroll', () => {
+                const scrolled = window.pageYOffset;
+                floatingElements.forEach((element, index) => {
+                    const speed = 0.5 + (index * 0.1);
+                    element.style.transform = `translateY(${scrolled * speed}px)`;
+                });
+            });
+        });
+    </script>
+</body>
+</html>
