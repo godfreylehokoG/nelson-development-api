@@ -98,9 +98,58 @@ Content-Type: application/json
                 </div>
                 <div class="spec-item">
                     <div class="spec-number">4</div>
+                    <h3>Technical Requirements</h3>
+                    <p><strong>Method:</strong> POST<br>
+                       <strong>Content-Type:</strong> application/json<br>
+                       <strong>Must be publicly accessible</strong></p>
+                </div>
+                <div class="spec-item">
+                    <div class="spec-number">5</div>
                     <h3>JSON Response</h3>
                     <p>Receive the sorted character array as a "word" field in the JSON response.</p>
                 </div>
+
+                <div class="spec-item">
+                    <div class="spec-number">6</div>
+                    <h3>Request Example</h3>
+                    <p>POST request with JSON body:</p>
+                    <div class="code-example">
+                        <code>{"data": "hello world"}</code>
+                    </div>
+                </div>
+                
+                <div class="spec-item">
+                    <div class="spec-number">7</div>
+                    <h3>Response Example</h3>
+                    <p>Expected JSON response format:</p>
+                    <div class="code-example">
+                        <code>{"word": [" ", "d", "e", "h", "l", "l", "l", "o", "o", "r", "w"]}</code>
+                    </div>
+                </div>
+
+                <div class="spec-item">
+                    <div class="spec-number">8</div>
+                    <h3>Numbers & Symbols</h3>
+                    <p>Expected JSON response format:</p>
+                    <div class="code-example">
+                        <code>{"12345!@#$%": [ "!", "#", "$", "%", "1", "2", "3", "4", "5", "@" ]}</code>
+                    </div>
+                </div>
+
+                <div class="spec-item">
+                    <div class="spec-number">9</div>
+                    <h3>Edge Case</h3>
+                    <p>Expected JSON response format:</p>
+                    <div class="code-example">
+                        <code>{"aaaa": ["a", "a", "a", "a", "a"]}</code>
+                    </div>
+                </div>
+                
+                <!-- <div class="spec-item">
+                    <div class="spec-number">8</div>
+                    <h3>Validation Process</h3>
+                    <p>Our validator will test your endpoint automatically and email you the results. Ensure your API handles the exact request/response format shown.</p>
+                </div> -->
                 
             </div>
         </div>
